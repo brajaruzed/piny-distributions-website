@@ -1,19 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <defs>
-    <radialGradient id="r1" cx="0" cy="0" r="1" gradientTransform="translate(940 120) rotate(135) scale(420 330)" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#176a50" stop-opacity=".72"/>
-      <stop offset="1" stop-color="#176a50" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="1200" height="630" fill="#0d1f1a"/>
-  <rect width="1200" height="630" fill="url(#r1)"/>
-  <circle cx="1030" cy="510" r="160" fill="#d7b96f" fill-opacity=".08"/>
-  <g transform="translate(90 88)">
-    <rect width="72" height="72" rx="20" fill="#f6f1e8"/>
-    <path d="M20 50V22h18.5C47 22 52 27 52 35s-5 13-13.5 13H28v2H20Zm8-10h10c4 0 6-1.8 6-5s-2-5-6-5H28v10Z" fill="#0d1f1a"/>
-  </g>
-  <text x="90" y="255" fill="#d7b96f" font-size="30" font-family="Arial, sans-serif" letter-spacing="8">PINY DISTRIBUTIONS</text>
-  <text x="90" y="350" fill="#ffffff" font-size="68" font-family="Arial, sans-serif" font-weight="700">Connecting Global Brands</text>
-  <text x="90" y="430" fill="#ffffff" font-size="68" font-family="Arial, sans-serif" font-weight="700">with African Markets</text>
-  <text x="90" y="520" fill="#9ecbb9" font-size="26" font-family="Arial, sans-serif">Kenya · East Africa · Global Partnerships</text>
-</svg>
+<defs><radialGradient id="r1" cx="0" cy="0" r="1" gradientTransform="translate(940 120) rotate(135) scale(420 330)" gradientUnits="userSpaceOnUse"><stop stop-color="#176a50" stop-opacity=".72"/><stop offset="1" stop-color="#176a50" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="630" fill="#0d1f1a"/><rect width="1200" height="630" fill="url(#r1)"/><circle cx="1030" cy="510" r="160" fill="#d7b96f" fill-opacity=".08"/>
+<g transform="translate(90 88)"><rect width="72" height="72" rx="20" fill="#f6f1e8"/><text x="24" y="51" fill="#0d1f1a" font-size="44" font-family="Arial,sans-serif" font-weight="700">P</text></g>
+<text x="90" y="255" fill="#d7b96f" font-size="30" font-family="Arial,sans-serif" letter-spacing="8">PINY DISTRIBUTIONS</text><text x="90" y="350" fill="#fff" font-size="66" font-family="Arial,sans-serif" font-weight="700">Global brands.</text><text x="90" y="430" fill="#fff" font-size="66" font-family="Arial,sans-serif" font-weight="700">Local market access.</text><text x="90" y="520" fill="#9ecbb9" font-size="26" font-family="Arial,sans-serif">Kenya · East Africa · Global Partnerships</text></svg>

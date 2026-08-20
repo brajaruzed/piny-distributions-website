@@ -1,33 +1,12 @@
-# PINY Distributions — website package
+# PINY Distributions Website — V2
 
-This is a complete static website for **pinydistributions.com**.
+Premium single-page website for https://pinydistributions.com.
 
-## Included
-- `index.html` — full website
-- `styles.css` — responsive design
-- `script.js` — mobile navigation + current year
-- `logo.svg` — PINY logo mark
-- `favicon.svg` — browser icon
-- `social-card.svg` — social sharing graphic
-- `robots.txt` — search-engine crawling instructions
-- `sitemap.xml` — Google/Bing sitemap
+## Update the live site
+Upload all files in this package to the root of the existing GitHub repository and replace the older versions. GitHub Pages will redeploy automatically. Do not change DNS.
 
-## Business contact
-The website currently uses:
+## Positioning
+The site clearly separates what PINY is doing now from its future roadmap. It does not claim existing warehouses, established regional infrastructure, exclusive supplier rights or a large operating footprint.
 
-`pinydistributions@outlook.com`
-
-You can later switch this to a domain-based address such as `info@pinydistributions.com` when convenient.
-
-## Recommended deployment
-This site is static HTML/CSS/JS and can be hosted on services such as Cloudflare Pages, GitHub Pages, Netlify, or another static host.
-
-## Google indexing checklist
-After `https://pinydistributions.com` is live:
-1. Add the domain to Google Search Console.
-2. Verify domain ownership using the DNS TXT record Google provides.
-3. Submit: `https://pinydistributions.com/sitemap.xml`
-4. Use URL Inspection on the homepage and request indexing.
-
-## Brand positioning
-The site deliberately presents PINY as an **emerging distribution and market-entry company** rather than pretending that warehouses, fulfilment infrastructure, or broad regional operations already exist. Future capabilities are described as what PINY is building toward.
+## Google
+The existing Search Console verification remains valid. The sitemap stays at https://pinydistributions.com/sitemap.xml.
