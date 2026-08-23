@@ -16,3 +16,4 @@ if (toggle && nav) {
 }
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
