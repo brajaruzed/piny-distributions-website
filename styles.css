@@ -687,14 +687,19 @@ footer {
 .notice-pill b{font-weight:600;color:#52615b}
 .catalogue-section{padding-top:48px}
 .catalogue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.product-card{min-height:330px;padding:28px;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:24px;background:#fff}
-.product-card h2{margin:28px 0 14px;font-size:1.45rem;line-height:1.1}
+.product-card{min-height:470px;padding:0;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:#fff}
+.product-photo{height:205px;margin:0;overflow:hidden;background:#e8e3d9}
+.product-photo img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s ease}
+.product-card:hover .product-photo img{transform:scale(1.035)}
+.product-content{padding:25px 28px 28px;display:flex;flex:1;flex-direction:column}
+.product-card h2{margin:20px 0 14px;font-size:1.45rem;line-height:1.1}
 .product-card ul{padding-left:18px;margin:0;color:#5d6b66;font-size:.92rem}
 .product-card li+li{margin-top:7px}
 .product-card a{margin-top:auto;padding-top:24px;color:var(--forest);font-size:.82rem;font-weight:800}
 .featured-product{background:var(--forest);color:#fff}
 .featured-product .product-category,.featured-product a{color:var(--mint)}
 .featured-product ul{color:rgba(255,255,255,.68)}
+.catalogue-photo-note{max-width:840px;margin:24px 0 0;color:#65736e;font-size:.78rem}
 .order-process{background:var(--ink);color:#fff}
 .order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0}
 .order-grid article{padding:28px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10)}
@@ -736,6 +741,7 @@ footer {
   .page-hero h1{font-size:clamp(2.6rem,13vw,4rem)}
   .notice-pill{align-items:flex-start;flex-direction:column;border-radius:20px}
   .catalogue-grid,.order-grid{grid-template-columns:1fr}
-  .product-card{min-height:300px}
+  .product-card{min-height:450px}
+  .product-photo{height:220px}
   .future-panel,.contact-options article{padding:27px}
 }
