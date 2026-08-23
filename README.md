@@ -1,9 +1,19 @@
-# PINY Distributions Website — V2
+# PINY Distributions Website
 
-Premium single-page website for https://pinydistributions.com.
+Multi-page website for https://pinydistributions.com.
+
+## Pages
+- Home
+- About
+- Services
+- Industries
+- Rugby catalogue
+- For brands
+- For buyers
+- Contact
 
 ## Update the live site
-Upload all files in this package to the root of the existing GitHub repository and replace the older versions. GitHub Pages will redeploy automatically. Do not change DNS.
+Changes merged into the `main` branch are deployed automatically by GitHub Pages. Keep `CNAME` set to `pinydistributions.com`; no DNS change is required.
 
 ## Positioning
 The site clearly separates what PINY is doing now from its future roadmap. It does not claim existing warehouses, established regional infrastructure, exclusive supplier rights or a large operating footprint.
