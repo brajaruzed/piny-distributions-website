@@ -38,9 +38,54 @@
   </header>
   <main>
     <section class="page-hero"><p class="eyebrow">Contact</p><h1>Start with a clear conversation.</h1><p>Whether you represent an international brand or a local buyer, tell us what you are trying to achieve and where you need support.</p></section>
-    <section class="section contact-layout">
-      <div class="contact-main"><div class="section-label">Business enquiries</div><h2>PINY Distributions</h2><p>Kenya · East Africa</p><a class="contact-address" href="mailto:pinydistributions@outlook.com">pinydistributions@outlook.com</a></div>
-      <div class="contact-options"><article><span>FOR BRANDS</span><h3>Market-entry partnership</h3><p>Product range, target customers, commercial terms and territory goals.</p><a href="mailto:pinydistributions@outlook.com?subject=Brand%20partnership%20enquiry">Start enquiry →</a></article><article><span>FOR BUYERS</span><h3>Product sourcing</h3><p>Product, quantity, budget, specification and required date.</p><a href="mailto:pinydistributions@outlook.com?subject=Product%20sourcing%20enquiry">Share requirement →</a></article></div>
+    <section class="section contact-layout form-contact-layout">
+      <div class="contact-main"><div class="section-label">Business enquiries</div><h2>PINY Distributions</h2><p>Kenya · East Africa</p><p>Choose the form that matches your enquiry. Your submission will be delivered directly to PINY.</p><a class="contact-address" href="mailto:pinydistributions@outlook.com">pinydistributions@outlook.com</a></div>
+      <div class="contact-options inquiry-forms">
+        <article id="brand-enquiry">
+          <span>FOR BRANDS</span><h3>Market-entry partnership</h3><p>Tell us about your product range, target customers and territory goals.</p>
+          <form class="inquiry-form" action="https://formsubmit.co/pinydistributions@outlook.com" method="POST">
+            <input type="hidden" name="_subject" value="New PINY brand partnership enquiry">
+            <input type="hidden" name="_next" value="https://pinydistributions.com/thanks.html">
+            <input type="hidden" name="_template" value="table">
+            <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
+            <div class="form-grid">
+              <label><span>Full name</span><input type="text" name="Full name" autocomplete="name" required></label>
+              <label><span>Work email</span><input type="email" name="Email" autocomplete="email" required></label>
+              <label><span>Company or brand</span><input type="text" name="Company or brand" autocomplete="organization" required></label>
+              <label><span>Website <small>Optional</small></span><input type="url" name="Website" placeholder="https://"></label>
+              <label class="form-wide"><span>Product range</span><textarea name="Product range" rows="3" placeholder="What products do you offer?" required></textarea></label>
+              <label><span>Target customers</span><input type="text" name="Target customers" placeholder="Retailers, schools, clubs…" required></label>
+              <label><span>Target territory</span><input type="text" name="Target territory" placeholder="Kenya, East Africa…" required></label>
+              <label class="form-wide"><span>Commercial terms and goals</span><textarea name="Commercial terms and territory goals" rows="4" placeholder="Pricing, MOQ, lead time, partnership expectations…" required></textarea></label>
+            </div>
+            <label class="form-consent"><input type="checkbox" required><span>I agree that PINY may use these details to respond to this enquiry.</span></label>
+            <button class="btn btn-primary form-submit" type="submit">Send brand enquiry →</button>
+          </form>
+        </article>
+        <article id="buyer-enquiry">
+          <span>FOR BUYERS</span><h3>Product sourcing</h3><p>Share the product, quantity, specification and date you require it.</p>
+          <form class="inquiry-form" action="https://formsubmit.co/pinydistributions@outlook.com" method="POST">
+            <input type="hidden" name="_subject" value="New PINY product sourcing enquiry">
+            <input type="hidden" name="_next" value="https://pinydistributions.com/thanks.html">
+            <input type="hidden" name="_template" value="table">
+            <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off">
+            <div class="form-grid">
+              <label><span>Full name</span><input type="text" name="Full name" autocomplete="name" required></label>
+              <label><span>Email</span><input type="email" name="Email" autocomplete="email" required></label>
+              <label><span>Club, school or company</span><input type="text" name="Organisation" autocomplete="organization" required></label>
+              <label><span>Buyer type</span><select name="Buyer type" required><option value="" selected disabled>Select one</option><option>Club</option><option>School</option><option>Retailer</option><option>Institution</option><option>Individual</option><option>Other</option></select></label>
+              <label class="form-wide"><span>Product required</span><input type="text" name="Product required" placeholder="For example: size 5 training rugby balls" required></label>
+              <label><span>Approximate quantity</span><input type="text" name="Approximate quantity" required></label>
+              <label><span>Budget <small>Optional</small></span><input type="text" name="Budget"></label>
+              <label class="form-wide"><span>Specification or custom branding</span><textarea name="Specification or branding" rows="3" placeholder="Sizes, colours, quality level, club branding…"></textarea></label>
+              <label><span>Required date</span><input type="date" name="Required date" required></label>
+              <label><span>Phone <small>Optional</small></span><input type="tel" name="Phone" autocomplete="tel"></label>
+            </div>
+            <label class="form-consent"><input type="checkbox" required><span>I agree that PINY may use these details to respond to this enquiry.</span></label>
+            <button class="btn btn-primary form-submit" type="submit">Send sourcing enquiry →</button>
+          </form>
+        </article>
+      </div>
     </section></main>
   <footer>
     <div class="footer-brand"><img src="logo.svg" alt=""><div><strong>PINY Distributions</strong><span>Connecting Global Brands with African Markets</span></div></div>
