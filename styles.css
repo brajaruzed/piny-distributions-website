@@ -296,6 +296,7 @@ button, input, textarea { font: inherit; }
 
 .product-photo-shields img { object-position: 72% 72%; }
 .product-photo-post img { object-position: 20% center; }
+.product-photo-gps img { object-position: center 78%; }
 .catalogue-photo-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 .strip {
