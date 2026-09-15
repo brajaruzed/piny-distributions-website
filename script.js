@@ -101,7 +101,7 @@ const siteHeader = document.querySelector('.site-header');
 if (siteHeader) {
   const headerTools = document.createElement('div');
   headerTools.className = 'header-tools';
-  headerTools.innerHTML = `<button class="header-tool search-launcher" type="button" aria-label="Search PINY"><span aria-hidden="true">⌕</span><b>Search</b></button><button class="header-tool cart-launcher" type="button" data-open-site-cart aria-label="Open preview cart"><span aria-hidden="true">Bag</span><b>Cart</b><i data-cart-count hidden>0</i></button>`;
+  headerTools.innerHTML = `<button class="header-tool search-launcher" type="button" aria-label="Search PINY"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg><b>Search</b></button><button class="header-tool cart-launcher" type="button" data-open-site-cart aria-label="Open preview cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1.3 12H5.3L4 8Z"></path><path d="M8 9V6a4 4 0 0 1 8 0v3"></path></svg><b>Cart</b><i data-cart-count hidden>0</i></button>`;
   siteHeader.appendChild(headerTools);
 
   const searchDialog = document.createElement('dialog');
