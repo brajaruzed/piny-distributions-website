@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E-Shop Preview | PINY Distributions</title>
-  <meta name="description" content="Explore PINY's developing multi-brand sports E-Shop across rugby, football, basketball and volleyball. Preview only; availability and pricing are not yet confirmed." />
+  <title>Sports E-Shop Preview | PINY Distributions</title>
+  <meta name="description" content="Build a sports-equipment enquiry across rugby, football, basketball, volleyball and performance technology. Select sizes and use the preview cart; payment is not active." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://pinydistributions.com/catalogue.html" />
   <meta property="og:type" content="website" />
@@ -32,16 +32,16 @@
   <main>
     <section class="page-hero catalogue-hero sports-catalogue-hero eshop-hero">
       <div class="catalogue-intro">
-        <p class="eyebrow">PINY E-Shop · Range preview</p>
-        <h1>Built for the<br><span>way Kenya plays.</span></h1>
-        <p>A developing sports marketplace for PINY's TUKO concepts and selected third-party brand references—organised by sport and shown from multiple angles.</p>
-        <div class="notice-pill catalogue-notice"><span class="status-dot">Preview only</span><b>Products, prices and availability will only be added after they are confirmed.</b></div>
-        <div class="catalogue-stats" aria-label="E-Shop preview summary"><div><strong>4</strong><span>Sports</span></div><div><strong>15</strong><span>Items</span></div><div><strong>3</strong><span>Views</span></div></div>
+        <p class="eyebrow">PINY E-Shop · Equipment preview</p>
+        <h1>Find the right kit.<br><span>Build your enquiry.</span></h1>
+        <p>Compare TUKO concepts with selected manufacturer references, choose the correct size and save equipment in a preview cart.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#shop-results">Browse equipment →</a><button class="btn btn-secondary hero-cart-button" type="button" data-open-site-cart>Open cart <span data-cart-count hidden>0</span></button></div>
+        <div class="catalogue-stats" aria-label="E-Shop preview summary"><div><strong>5</strong><span>Categories</span></div><div><strong>22</strong><span>Products</span></div><div><strong>7</strong><span>TUKO ball views</span></div></div>
       </div>
       <aside class="eshop-visual" aria-label="E-Shop sports categories">
         <div class="eshop-visual-logo"><span>Featured concept brand</span><img src="assets/tuko-athletic-logo.png" alt="TUKO — Together Further" /></div>
         <div class="eshop-ball-grid">
-          <figure><img src="assets/catalogue/rugby-00.webp" alt="Rugby ball concept"><figcaption>Rugby</figcaption></figure>
+          <figure><img src="assets/eshop/tuko-rugby-ball-hero.webp" alt="TUKO rugby ball concept"><figcaption>Rugby</figcaption></figure>
           <figure><img src="assets/catalogue/football-00.webp" alt="Football concept"><figcaption>Football</figcaption></figure>
           <figure><img src="assets/catalogue/basketball-00.webp" alt="Basketball concept"><figcaption>Basketball</figcaption></figure>
           <figure><img src="assets/catalogue/volleyball-00.webp" alt="Volleyball concept"><figcaption>Volleyball</figcaption></figure>
@@ -51,16 +51,16 @@
     <section class="section sports-catalogue" aria-labelledby="catalogue-heading">
       <div class="catalogue-toolbar">
         <div><div class="section-label">Browse the E-Shop</div><h2 id="catalogue-heading">Choose your sport.</h2></div>
-        <p>Start with a category, then filter by brand or search for equipment. Every listing is a visual range preview—there is no checkout yet.</p>
+        <p>Start with a category, then filter by brand or search for equipment. Select a size before adding an item to your preview cart.</p>
       </div>
       <div class="filter-group category-filter-group"><span>Sport</span><div class="sport-filters" role="toolbar" aria-label="Browse sports categories" id="sport-filters"></div></div>
-      <div class="marketplace-disclaimer"><strong>Multi-brand by design</strong><span>TUKO is the current working name for PINY's own athletic concepts. Rhino Rugby and RAM Rugby are shown as manufacturer references; supply relationships and Kenya availability are not confirmed.</span></div>
+      <div class="marketplace-disclaimer"><strong>Multi-brand by design</strong><span>TUKO is PINY's working athletic-brand concept. Rhino Rugby, RAM Rugby and STATSports are manufacturer references only; supply relationships, Kenya availability and prices are not confirmed.</span></div>
       <div class="catalogue-search-wrap">
         <label for="catalogue-search">Find equipment</label>
         <input id="catalogue-search" type="search" placeholder="Search balls, shorts, gloves, nets…" autocomplete="off" />
       </div>
       <div class="filter-group"><span>Brand</span><div class="brand-filters" role="toolbar" aria-label="Filter products by brand" id="brand-filters"></div></div>
-      <div class="catalogue-results" id="shop-results" aria-live="polite"><span id="catalogue-count"></span><span>Range preview · nothing shown as in stock</span></div>
+      <div class="catalogue-results" id="shop-results" aria-live="polite"><span id="catalogue-count"></span><span>Select size · add to preview cart · request confirmation</span></div>
       <div class="sports-product-grid" id="sports-product-grid"></div>
       <noscript><p class="catalogue-js-note">Enable JavaScript to browse the interactive product views.</p></noscript>
     </section>
@@ -79,6 +79,22 @@
   <button class="dialog-close" type="button" aria-label="Close product details">×</button>
   <div id="dialog-content"></div>
 </dialog>
+<div class="cart-backdrop" id="cart-backdrop" hidden></div>
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-labelledby="cart-title">
+  <header class="cart-header"><div><p>PINY E-Shop</p><h2 id="cart-title">Preview cart</h2></div><button class="cart-close" type="button" aria-label="Close cart">×</button></header>
+  <div class="cart-status"><span id="cart-summary">0 items · Quote required</span><small>Items are saved on this device.</small></div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-checkout">
+    <div class="checkout-line"><span>Products</span><strong>Confirmation required</strong></div>
+    <div class="checkout-line"><span>Delivery</span><strong>Calculated after location</strong></div>
+    <div class="checkout-total"><span>Estimated total</span><strong>Quote required</strong></div>
+    <p class="payment-heading">Planned payment options</p>
+    <div class="payment-options" aria-label="Planned payment methods"><span>M-PESA</span><span>VISA</span><span>Mastercard</span><span>Bank transfer</span></div>
+    <a class="btn btn-primary cart-enquire" id="cart-enquire" href="contact.html#buyer-enquiry">Request stock & pricing →</a>
+    <button class="checkout-disabled" type="button" disabled>Continue to payment</button>
+    <p class="checkout-note"><strong>Payments are not active.</strong> PINY must first confirm stock, Kenya pricing, delivery and merchant accounts.</p>
+  </div>
+</aside>
 <script src="site-config.js"></script>
 <script src="script.js"></script>
 <script src="catalogue.js"></script>
