@@ -165,6 +165,8 @@ const sortProducts = document.getElementById('sort-products');
 const filterSidebar = document.getElementById('shop-filter-sidebar');
 const filterToggle = document.getElementById('shop-filter-toggle');
 const filterClose = document.getElementById('shop-filter-close');
+const activeFilterSummary = document.getElementById('active-filter-summary');
+const clearShopFilters = document.getElementById('clear-shop-filters');
 let activeSport = 'all';
 let activeBrand = 'all';
 let activeSort = 'featured';
@@ -236,18 +238,66 @@ function escapeHtml(value) {
   return value.replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
 }
 
+function interleaveSports(items) {
+  const order = ['rugby', 'football', 'basketball', 'volleyball', 'performance'];
+  const buckets = new Map(order.map(sport => [sport, items.filter(product => product.sport === sport)]));
+  const interleaved = [];
+  while ([...buckets.values()].some(bucket => bucket.length)) {
+    order.forEach(sport => { const product = buckets.get(sport).shift(); if (product) interleaved.push(product); });
+  }
+  return interleaved;
+}
+
+function syncFilterInterface() {
+  filters.querySelectorAll('button').forEach(button => {
+    const active = button.dataset.sport === activeSport;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+  brandFilters.querySelectorAll('button').forEach(button => {
+    const active = button.dataset.brand === activeBrand;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+  document.querySelectorAll('[data-shop-sport]').forEach(button => button.classList.toggle('active', button.dataset.shopSport === activeSport));
+  shopSearchCategory.value = activeSport;
+}
+
+function updateSearchUrl(query) {
+  const url = new URL(window.location.href);
+  if (query) url.searchParams.set('search', query);
+  else url.searchParams.delete('search');
+  window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
+function resetShopFilters() {
+  activeSport = 'all';
+  activeBrand = 'all';
+  searchInput.value = '';
+  updateSearchUrl('');
+  syncFilterInterface();
+  renderProducts();
+}
+
 function renderProducts() {
   const query = searchInput.value.trim();
-  const visible = products.filter(product => {
+  let visible = products.filter(product => {
     const matchesSport = activeSport === 'all' || product.sport === activeSport;
     const matchesBrand = activeBrand === 'all' || product.brandKey === activeBrand;
     const haystack = `${product.brand} ${product.sportLabel} ${product.name} ${product.category} ${product.features.join(' ')}`;
     return matchesSport && matchesBrand && matchesSearch(haystack, query);
   });
+  if (activeSort === 'featured' && activeSport === 'all' && !query) visible = interleaveSports(visible);
   if (activeSort === 'name') visible.sort((a, b) => a.name.localeCompare(b.name));
   if (activeSort === 'sport') visible.sort((a, b) => a.sportLabel.localeCompare(b.sportLabel) || a.name.localeCompare(b.name));
   grid.innerHTML = visible.map(productCard).join('');
   count.textContent = visible.length;
+  const summary = [];
+  if (query) summary.push(`Search: “${query}”`);
+  if (activeSport !== 'all') summary.push(sports.find(([key]) => key === activeSport)?.[1] || activeSport);
+  if (activeBrand !== 'all') summary.push(brands.find(([key]) => key === activeBrand)?.[1] || activeBrand);
+  activeFilterSummary.textContent = summary.length ? summary.join(' · ') : 'All sports and brands';
+  clearShopFilters.hidden = !query && activeSport === 'all' && activeBrand === 'all';
   if (!visible.length) grid.innerHTML = `<div class="catalogue-empty"><h3>No results for “${escapeHtml(searchInput.value.trim())}”</h3><p>Try “ball”, “rugby”, a brand name or clear the filters.</p><button type="button" id="clear-shop-search">Clear search</button></div>`;
 }
 
@@ -268,10 +318,9 @@ function activateFilter(container, button, attribute) {
   });
   if (attribute === 'sport') {
     activeSport = button.dataset.sport;
-    shopSearchCategory.value = activeSport;
-    document.querySelectorAll('[data-shop-sport]').forEach(item => item.classList.toggle('active', item.dataset.shopSport === activeSport));
   }
   if (attribute === 'brand') activeBrand = button.dataset.brand;
+  syncFilterInterface();
   renderProducts();
   if (window.innerWidth <= 700) {
     filterSidebar.classList.remove('open');
@@ -337,8 +386,8 @@ function closeCart() {
 
 filters.addEventListener('click', event => { const button = event.target.closest('[data-sport]'); if (button) activateFilter(filters, button, 'sport'); });
 brandFilters.addEventListener('click', event => { const button = event.target.closest('[data-brand]'); if (button) activateFilter(brandFilters, button, 'brand'); });
-searchInput.addEventListener('input', renderProducts);
-shopSearchForm.addEventListener('submit', event => { event.preventDefault(); renderProducts(); document.getElementById('shop-results').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+searchInput.addEventListener('input', () => { if (!searchInput.value.trim()) updateSearchUrl(''); renderProducts(); });
+shopSearchForm.addEventListener('submit', event => { event.preventDefault(); updateSearchUrl(searchInput.value.trim()); renderProducts(); document.getElementById('shop-results').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
 shopSearchCategory.addEventListener('change', () => {
   const button = filters.querySelector(`[data-sport="${shopSearchCategory.value}"]`);
   if (button) activateFilter(filters, button, 'sport');
@@ -346,21 +395,19 @@ shopSearchCategory.addEventListener('change', () => {
 sortProducts.addEventListener('change', () => { activeSort = sortProducts.value; renderProducts(); });
 filterToggle.addEventListener('click', () => { filterSidebar.classList.add('open'); filterToggle.setAttribute('aria-expanded', 'true'); });
 filterClose.addEventListener('click', () => { filterSidebar.classList.remove('open'); filterToggle.setAttribute('aria-expanded', 'false'); filterToggle.focus(); });
+clearShopFilters.addEventListener('click', resetShopFilters);
 document.querySelectorAll('[data-shop-sport]').forEach(button => button.addEventListener('click', () => {
+  searchInput.value = '';
+  updateSearchUrl('');
+  activeBrand = 'all';
+  syncFilterInterface();
   const filterButton = filters.querySelector(`[data-sport="${button.dataset.shopSport}"]`);
   if (filterButton) activateFilter(filters, filterButton, 'sport');
 }));
 
 grid.addEventListener('click', event => {
   if (event.target.closest('#clear-shop-search')) {
-    searchInput.value = '';
-    activeSport = 'all';
-    activeBrand = 'all';
-    shopSearchCategory.value = 'all';
-    filters.querySelectorAll('button').forEach(button => { const active = button.dataset.sport === 'all'; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
-    brandFilters.querySelectorAll('button').forEach(button => { const active = button.dataset.brand === 'all'; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
-    document.querySelectorAll('[data-shop-sport]').forEach(button => button.classList.toggle('active', button.dataset.shopSport === 'all'));
-    renderProducts();
+    resetShopFilters();
     return;
   }
   const thumb = event.target.closest('.product-thumb');

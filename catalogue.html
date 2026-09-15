@@ -60,7 +60,7 @@
         </aside>
         <div class="shop-listings">
           <div class="shop-results-header" id="shop-results">
-            <div><button class="shop-filter-toggle" id="shop-filter-toggle" type="button" aria-expanded="false" aria-controls="shop-filter-sidebar">Filters</button><p><strong id="catalogue-count"></strong><span>Results</span></p></div>
+            <div class="shop-results-context"><button class="shop-filter-toggle" id="shop-filter-toggle" type="button" aria-expanded="false" aria-controls="shop-filter-sidebar">Filters</button><p><strong id="catalogue-count"></strong><span>Results</span></p><span id="active-filter-summary">All equipment</span><button class="clear-shop-filters" id="clear-shop-filters" type="button" hidden>Clear filters</button></div>
             <label for="sort-products"><span>Sort by</span><select id="sort-products"><option value="featured">Featured</option><option value="name">Name: A–Z</option><option value="sport">Sport</option></select></label>
           </div>
           <div class="sports-product-grid" id="sports-product-grid"></div>
@@ -88,11 +88,11 @@
     <div class="checkout-line"><span>Products</span><strong>Confirmation required</strong></div>
     <div class="checkout-line"><span>Delivery</span><strong>Calculated after location</strong></div>
     <div class="checkout-total"><span>Estimated total</span><strong>Quote required</strong></div>
-    <p class="payment-heading">Planned payment options</p>
+    <p class="payment-heading">Payment preview · not active</p>
     <div class="payment-options" aria-label="Planned payment methods"><span>M-PESA</span><span>VISA</span><span>Mastercard</span><span>Bank transfer</span></div>
     <a class="btn btn-primary cart-enquire" id="cart-enquire" href="contact.html#buyer-enquiry">Request stock & pricing →</a>
-    <button class="checkout-disabled" type="button" disabled>Continue to payment</button>
-    <p class="checkout-note"><strong>Payments are not active.</strong> PINY must first confirm stock, Kenya pricing, delivery and merchant accounts.</p>
+    <button class="checkout-disabled" type="button" disabled>Payment unavailable during preview</button>
+    <p class="checkout-note"><strong>No payment can be made on this website yet.</strong> PINY must first confirm stock, Kenya pricing, delivery and verified merchant accounts.</p>
   </div>
 </aside>
 <script src="site-config.js"></script>
