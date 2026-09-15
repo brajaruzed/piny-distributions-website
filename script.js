@@ -112,17 +112,38 @@ if (siteHeader) {
 
   const siteSearchInput = searchDialog.querySelector('input');
   const siteSearchResults = searchDialog.querySelector('.site-search-results');
+  function searchTokens(value) {
+    return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9.]+/g, ' ').trim().split(/\s+/).filter(Boolean).map(token => {
+      if (token.length > 3 && token.endsWith('s') && !token.endsWith('ss')) return token.slice(0, -1);
+      return token;
+    });
+  }
+  function globalSearchMatch(item, query) {
+    const queryTokens = searchTokens(query);
+    if (!queryTokens.length) return true;
+    const itemTokens = searchTokens(`${item.title} ${item.meta} ${item.keywords}`);
+    return queryTokens.every(queryToken => itemTokens.some(token => token === queryToken || (queryToken.length >= 4 && (token.startsWith(queryToken) || queryToken.startsWith(token)))));
+  }
+  function escapeSearchHtml(value) {
+    return value.replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+  }
   function renderSiteSearch() {
-    const query = siteSearchInput.value.trim().toLowerCase();
-    const matches = siteSearchItems.filter(item => !query || `${item.title} ${item.meta} ${item.keywords}`.toLowerCase().includes(query)).slice(0, 8);
-    siteSearchResults.innerHTML = matches.length
-      ? matches.map(item => `<a href="${item.href}"><span><strong>${item.title}</strong><small>${item.meta}</small></span><b aria-hidden="true">→</b></a>`).join('')
+    const query = siteSearchInput.value.trim();
+    const matches = siteSearchItems.filter(item => globalSearchMatch(item, query)).slice(0, query ? 7 : 8);
+    const shopSearchLink = query ? `<a class="site-search-all" href="catalogue.html?search=${encodeURIComponent(query)}#shop-results"><span><strong>Search E-Shop for “${escapeSearchHtml(query)}”</strong><small>See all matching equipment</small></span><b aria-hidden="true">→</b></a>` : '';
+    siteSearchResults.innerHTML = matches.length || query
+      ? shopSearchLink + matches.map(item => `<a href="${item.href}"><span><strong>${item.title}</strong><small>${item.meta}</small></span><b aria-hidden="true">→</b></a>`).join('')
       : '<p class="site-search-empty">No matches. Try a sport, brand, size or equipment name.</p>';
   }
   headerTools.querySelector('.search-launcher').addEventListener('click', () => { renderSiteSearch(); searchDialog.showModal(); siteSearchInput.focus(); });
   searchDialog.querySelector('.site-search-close').addEventListener('click', () => searchDialog.close());
   searchDialog.addEventListener('click', event => { if (event.target === searchDialog) searchDialog.close(); });
   siteSearchInput.addEventListener('input', renderSiteSearch);
+  siteSearchInput.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' || !siteSearchInput.value.trim()) return;
+    event.preventDefault();
+    window.location.href = `catalogue.html?search=${encodeURIComponent(siteSearchInput.value.trim())}#shop-results`;
+  });
 }
 
 function storedCartCount() {

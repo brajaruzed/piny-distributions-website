@@ -17,7 +17,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="shop-page">
 <div class="site-shell">
   <header class="site-header" id="top">
     <a class="brand" href="index.html" aria-label="PINY Distributions home">
@@ -29,46 +29,46 @@
       <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="industries.html">Industries</a><a aria-current="page" href="catalogue.html">E-Shop</a><a href="brands.html">For brands</a><a href="buyers.html">For buyers</a><a href="contact.html">Contact</a>
     </nav>
   </header>
+  <div class="shop-commerce-bar">
+    <form class="shop-search-form" id="shop-search-form" role="search">
+      <label class="sr-only" for="catalogue-search">Search sports equipment</label>
+      <select id="shop-search-category" aria-label="Search category">
+        <option value="all">All equipment</option><option value="rugby">Rugby</option><option value="football">Football</option><option value="basketball">Basketball</option><option value="volleyball">Volleyball</option><option value="performance">Performance tech</option>
+      </select>
+      <input id="catalogue-search" type="search" placeholder="Search balls, rugby balls, shorts, gloves…" autocomplete="off" />
+      <button type="submit" aria-label="Search equipment"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg><span>Search</span></button>
+    </form>
+    <button class="shop-cart-shortcut" type="button" data-open-site-cart><span>Preview cart</span><strong><span data-cart-count hidden>0</span> items</strong></button>
+  </div>
+  <nav class="shop-departments" aria-label="Shop departments">
+    <button type="button" class="active" data-shop-sport="all">All equipment</button><button type="button" data-shop-sport="rugby">Rugby</button><button type="button" data-shop-sport="football">Football</button><button type="button" data-shop-sport="basketball">Basketball</button><button type="button" data-shop-sport="volleyball">Volleyball</button><button type="button" data-shop-sport="performance">Performance tech</button>
+  </nav>
   <main>
-    <section class="page-hero catalogue-hero sports-catalogue-hero eshop-hero">
-      <div class="catalogue-intro">
-        <p class="eyebrow">PINY E-Shop · Equipment preview</p>
-        <h1>Find the right kit.<br><span>Build your enquiry.</span></h1>
-        <p>Compare TUKO concepts with selected manufacturer references, choose the correct size and save equipment in a preview cart.</p>
-        <div class="hero-actions"><a class="btn btn-primary" href="#shop-results">Browse equipment →</a><button class="btn btn-secondary hero-cart-button" type="button" data-open-site-cart>Open cart <span data-cart-count hidden>0</span></button></div>
-        <div class="catalogue-stats" aria-label="E-Shop preview summary"><div><strong>5</strong><span>Categories</span></div><div><strong>22</strong><span>Products</span></div><div><strong>7</strong><span>TUKO ball views</span></div></div>
-      </div>
-      <aside class="eshop-visual" aria-label="E-Shop sports categories">
-        <div class="eshop-visual-logo"><span>Featured concept brand</span><img src="assets/tuko-athletic-logo.png" alt="TUKO — Together Further" /></div>
-        <div class="eshop-ball-grid">
-          <figure><img src="assets/eshop/tuko-rugby-ball-hero.webp" alt="TUKO rugby ball concept"><figcaption>Rugby</figcaption></figure>
-          <figure><img src="assets/catalogue/football-00.webp" alt="Football concept"><figcaption>Football</figcaption></figure>
-          <figure><img src="assets/catalogue/basketball-00.webp" alt="Basketball concept"><figcaption>Basketball</figcaption></figure>
-          <figure><img src="assets/catalogue/volleyball-00.webp" alt="Volleyball concept"><figcaption>Volleyball</figcaption></figure>
+    <section class="shop-promo" aria-labelledby="shop-promo-title">
+      <div class="shop-promo-copy"><p>Featured TUKO concept</p><h1 id="shop-promo-title">Built to move.<br>Made to be seen.</h1><span>The approved TUKO rugby-ball design, shown from seven angles and planned in sizes 3, 4 and 5.</span><button type="button" data-shop-sport="rugby">Shop rugby equipment →</button></div>
+      <div class="shop-promo-product"><img src="assets/eshop/tuko-rugby-ball-hero.webp" alt="TUKO performance rugby ball concept"></div>
+    </section>
+    <section class="shop-market" aria-labelledby="catalogue-heading">
+      <div class="shop-market-title"><div><p>PINY E-Shop</p><h2 id="catalogue-heading">Sports equipment</h2></div><span>Choose a size, add items to your preview cart and request confirmed Kenya pricing.</span></div>
+      <div class="marketplace-disclaimer"><strong>Availability notice</strong><span>TUKO products are working concepts. Rhino Rugby, RAM Rugby and STATSports are manufacturer references only; supplier relationships, Kenya stock and local prices are not confirmed.</span></div>
+      <div class="shop-results-layout">
+        <aside class="shop-filter-sidebar" id="shop-filter-sidebar" aria-label="Product filters">
+          <div class="shop-filter-heading"><h3>Filters</h3><button type="button" id="shop-filter-close" aria-label="Close filters">×</button></div>
+          <div class="filter-group category-filter-group"><span>Department</span><div class="sport-filters" role="toolbar" aria-label="Browse sports categories" id="sport-filters"></div></div>
+          <div class="filter-group"><span>Brand</span><div class="brand-filters" role="toolbar" aria-label="Filter products by brand" id="brand-filters"></div></div>
+          <div class="shop-filter-note"><strong>Preview marketplace</strong><span>No item is represented as currently in stock.</span></div>
+        </aside>
+        <div class="shop-listings">
+          <div class="shop-results-header" id="shop-results">
+            <div><button class="shop-filter-toggle" id="shop-filter-toggle" type="button" aria-expanded="false" aria-controls="shop-filter-sidebar">Filters</button><p><strong id="catalogue-count"></strong><span>Results</span></p></div>
+            <label for="sort-products"><span>Sort by</span><select id="sort-products"><option value="featured">Featured</option><option value="name">Name: A–Z</option><option value="sport">Sport</option></select></label>
+          </div>
+          <div class="sports-product-grid" id="sports-product-grid"></div>
+          <noscript><p class="catalogue-js-note">Enable JavaScript to browse the interactive product views.</p></noscript>
         </div>
-      </aside>
-    </section>
-    <section class="section sports-catalogue" aria-labelledby="catalogue-heading">
-      <div class="catalogue-toolbar">
-        <div><div class="section-label">Browse the E-Shop</div><h2 id="catalogue-heading">Choose your sport.</h2></div>
-        <p>Start with a category, then filter by brand or search for equipment. Select a size before adding an item to your preview cart.</p>
       </div>
-      <div class="filter-group category-filter-group"><span>Sport</span><div class="sport-filters" role="toolbar" aria-label="Browse sports categories" id="sport-filters"></div></div>
-      <div class="marketplace-disclaimer"><strong>Multi-brand by design</strong><span>TUKO is PINY's working athletic-brand concept. Rhino Rugby, RAM Rugby and STATSports are manufacturer references only; supply relationships, Kenya availability and prices are not confirmed.</span></div>
-      <div class="catalogue-search-wrap">
-        <label for="catalogue-search">Find equipment</label>
-        <input id="catalogue-search" type="search" placeholder="Search balls, shorts, gloves, nets…" autocomplete="off" />
-      </div>
-      <div class="filter-group"><span>Brand</span><div class="brand-filters" role="toolbar" aria-label="Filter products by brand" id="brand-filters"></div></div>
-      <div class="catalogue-results" id="shop-results" aria-live="polite"><span id="catalogue-count"></span><span>Select size · add to preview cart · request confirmation</span></div>
-      <div class="sports-product-grid" id="sports-product-grid"></div>
-      <noscript><p class="catalogue-js-note">Enable JavaScript to browse the interactive product views.</p></noscript>
     </section>
-    <section class="section range-request">
-      <div><div class="section-label light">Help shape the E-Shop</div><h2>Tell PINY what your team needs.</h2><p>Your feedback helps decide what to develop, source and validate first. Registering interest is not an order or a commitment to purchase.</p></div>
-      <a class="btn btn-light" href="contact.html#buyer-enquiry">Register interest →</a>
-    </section>
-    <section class="section order-process"><div class="section-label light">How development works</div><div class="order-grid"><article><strong>01</strong><h3>Explore concepts</h3><p>Compare sports, products and multiple views.</p></article><article><strong>02</strong><h3>Share your needs</h3><p>Tell PINY what your team would value most.</p></article><article><strong>03</strong><h3>PINY validates</h3><p>We test specifications, sourcing and demand before launch.</p></article></div></section>
+    <section class="shop-help"><div><strong>Need equipment for a club, school or team?</strong><span>Send PINY the quantities and specifications you need. This is an enquiry, not an order.</span></div><a href="contact.html#buyer-enquiry">Request sourcing support →</a></section>
   </main>
   <footer>
     <div class="footer-brand"><img src="logo.svg" alt=""><div><strong>PINY Distributions</strong><span>Connecting Global Brands with African Markets</span></div></div>

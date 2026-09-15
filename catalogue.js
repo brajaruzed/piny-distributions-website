@@ -159,8 +159,15 @@ const cartBackdrop = document.getElementById('cart-backdrop');
 const cartItems = document.getElementById('cart-items');
 const cartSummary = document.getElementById('cart-summary');
 const cartEnquire = document.getElementById('cart-enquire');
+const shopSearchForm = document.getElementById('shop-search-form');
+const shopSearchCategory = document.getElementById('shop-search-category');
+const sortProducts = document.getElementById('sort-products');
+const filterSidebar = document.getElementById('shop-filter-sidebar');
+const filterToggle = document.getElementById('shop-filter-toggle');
+const filterClose = document.getElementById('shop-filter-close');
 let activeSport = 'all';
 let activeBrand = 'all';
+let activeSort = 'featured';
 
 const sports = [
   ['rugby', 'Rugby', 'assets/eshop/tuko-rugby-ball-hero.webp'],
@@ -211,17 +218,37 @@ function productCard(product) {
   </article>`;
 }
 
+function normalizedTokens(value) {
+  return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9.]+/g, ' ').trim().split(/\s+/).filter(Boolean).map(token => {
+    if (token.length > 3 && token.endsWith('s') && !token.endsWith('ss')) return token.slice(0, -1);
+    return token;
+  });
+}
+
+function matchesSearch(haystack, query) {
+  const queryTokens = normalizedTokens(query);
+  if (!queryTokens.length) return true;
+  const haystackTokens = normalizedTokens(haystack);
+  return queryTokens.every(queryToken => haystackTokens.some(token => token === queryToken || (queryToken.length >= 4 && (token.startsWith(queryToken) || queryToken.startsWith(token)))));
+}
+
+function escapeHtml(value) {
+  return value.replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+}
+
 function renderProducts() {
-  const query = searchInput.value.trim().toLowerCase();
+  const query = searchInput.value.trim();
   const visible = products.filter(product => {
     const matchesSport = activeSport === 'all' || product.sport === activeSport;
     const matchesBrand = activeBrand === 'all' || product.brandKey === activeBrand;
-    const haystack = `${product.brand} ${product.sportLabel} ${product.name} ${product.category} ${product.features.join(' ')}`.toLowerCase();
-    return matchesSport && matchesBrand && (!query || haystack.includes(query));
+    const haystack = `${product.brand} ${product.sportLabel} ${product.name} ${product.category} ${product.features.join(' ')}`;
+    return matchesSport && matchesBrand && matchesSearch(haystack, query);
   });
+  if (activeSort === 'name') visible.sort((a, b) => a.name.localeCompare(b.name));
+  if (activeSort === 'sport') visible.sort((a, b) => a.sportLabel.localeCompare(b.sportLabel) || a.name.localeCompare(b.name));
   grid.innerHTML = visible.map(productCard).join('');
-  count.textContent = `${visible.length} product${visible.length === 1 ? '' : 's'}`;
-  if (!visible.length) grid.innerHTML = '<div class="catalogue-empty"><h3>No matching equipment</h3><p>Try another category, brand or search term.</p></div>';
+  count.textContent = visible.length;
+  if (!visible.length) grid.innerHTML = `<div class="catalogue-empty"><h3>No results for “${escapeHtml(searchInput.value.trim())}”</h3><p>Try “ball”, “rugby”, a brand name or clear the filters.</p><button type="button" id="clear-shop-search">Clear search</button></div>`;
 }
 
 function openProduct(product) {
@@ -239,9 +266,17 @@ function activateFilter(container, button, attribute) {
     item.classList.toggle('active', active);
     item.setAttribute('aria-pressed', String(active));
   });
-  if (attribute === 'sport') activeSport = button.dataset.sport;
+  if (attribute === 'sport') {
+    activeSport = button.dataset.sport;
+    shopSearchCategory.value = activeSport;
+    document.querySelectorAll('[data-shop-sport]').forEach(item => item.classList.toggle('active', item.dataset.shopSport === activeSport));
+  }
   if (attribute === 'brand') activeBrand = button.dataset.brand;
   renderProducts();
+  if (window.innerWidth <= 700) {
+    filterSidebar.classList.remove('open');
+    filterToggle.setAttribute('aria-expanded', 'false');
+  }
   if (attribute === 'sport') document.getElementById('shop-results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -303,8 +338,31 @@ function closeCart() {
 filters.addEventListener('click', event => { const button = event.target.closest('[data-sport]'); if (button) activateFilter(filters, button, 'sport'); });
 brandFilters.addEventListener('click', event => { const button = event.target.closest('[data-brand]'); if (button) activateFilter(brandFilters, button, 'brand'); });
 searchInput.addEventListener('input', renderProducts);
+shopSearchForm.addEventListener('submit', event => { event.preventDefault(); renderProducts(); document.getElementById('shop-results').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+shopSearchCategory.addEventListener('change', () => {
+  const button = filters.querySelector(`[data-sport="${shopSearchCategory.value}"]`);
+  if (button) activateFilter(filters, button, 'sport');
+});
+sortProducts.addEventListener('change', () => { activeSort = sortProducts.value; renderProducts(); });
+filterToggle.addEventListener('click', () => { filterSidebar.classList.add('open'); filterToggle.setAttribute('aria-expanded', 'true'); });
+filterClose.addEventListener('click', () => { filterSidebar.classList.remove('open'); filterToggle.setAttribute('aria-expanded', 'false'); filterToggle.focus(); });
+document.querySelectorAll('[data-shop-sport]').forEach(button => button.addEventListener('click', () => {
+  const filterButton = filters.querySelector(`[data-sport="${button.dataset.shopSport}"]`);
+  if (filterButton) activateFilter(filters, filterButton, 'sport');
+}));
 
 grid.addEventListener('click', event => {
+  if (event.target.closest('#clear-shop-search')) {
+    searchInput.value = '';
+    activeSport = 'all';
+    activeBrand = 'all';
+    shopSearchCategory.value = 'all';
+    filters.querySelectorAll('button').forEach(button => { const active = button.dataset.sport === 'all'; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+    brandFilters.querySelectorAll('button').forEach(button => { const active = button.dataset.brand === 'all'; button.classList.toggle('active', active); button.setAttribute('aria-pressed', String(active)); });
+    document.querySelectorAll('[data-shop-sport]').forEach(button => button.classList.toggle('active', button.dataset.shopSport === 'all'));
+    renderProducts();
+    return;
+  }
   const thumb = event.target.closest('.product-thumb');
   if (thumb) {
     const gallery = thumb.closest('[data-gallery]');
@@ -352,7 +410,11 @@ cartDrawer.addEventListener('click', event => {
 });
 cartBackdrop.addEventListener('click', closeCart);
 window.addEventListener('open-piny-cart', openCart);
-window.addEventListener('keydown', event => { if (event.key === 'Escape' && cartDrawer.classList.contains('open')) closeCart(); });
+window.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  if (cartDrawer.classList.contains('open')) closeCart();
+  if (filterSidebar.classList.contains('open')) { filterSidebar.classList.remove('open'); filterToggle.setAttribute('aria-expanded', 'false'); filterToggle.focus(); }
+});
 
 const urlSearch = new URLSearchParams(window.location.search).get('search');
 if (urlSearch) searchInput.value = urlSearch;
