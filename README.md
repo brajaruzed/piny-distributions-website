@@ -7,7 +7,7 @@ Multi-page website for https://pinydistributions.com.
 - About
 - Services
 - Industries
-- Rugby catalogue
+- Multi-sport e-shop preview
 - For brands
 - For buyers
 - Contact
@@ -16,7 +16,7 @@ Multi-page website for https://pinydistributions.com.
 Changes merged into the `main` branch are deployed automatically by GitHub Pages. Keep `CNAME` set to `pinydistributions.com`; no DNS change is required.
 
 ## Positioning
-The site clearly separates what PINY is doing now from its future roadmap. It does not claim existing warehouses, established regional infrastructure, exclusive supplier rights or a large operating footprint.
+The site presents PINY as the main company and ecosystem. Its own developing sports range is previewed under the working name TUKO, while PINY remains open to future distribution partnerships. The shop-style catalogue does not claim that products are currently available for purchase.
 
 ## Google
 The existing Search Console verification remains valid. The sitemap stays at https://pinydistributions.com/sitemap.xml.
