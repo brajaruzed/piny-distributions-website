@@ -2,6 +2,6 @@
 window.SITE_CONFIG = Object.freeze({
   brandName: 'PINY Distributions',
   shortName: 'PINY',
-  catalogueName: 'TUKO Shop Preview',
+  catalogueName: 'E-Shop',
   productBrand: 'TUKO'
 });

@@ -23,7 +23,7 @@ if (siteConfig) {
   });
   replacements.forEach(([from, to]) => { document.title = document.title.replaceAll(from, to); });
   document.querySelectorAll('a[href="catalogue.html"]').forEach(link => {
-    if (link.textContent.trim() === 'Catalogue') link.textContent = 'Shop preview';
+    if (['Catalogue', 'Shop preview'].includes(link.textContent.trim())) link.textContent = 'E-Shop';
   });
 }
 
